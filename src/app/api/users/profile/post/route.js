@@ -1,6 +1,6 @@
 import prisma from "../../../../../../lib/prisma";
 import { NextResponse } from "next/server";
-import { verifyJwt } from "../../middleware";
+import { verifyJwt } from "@/app/api/middleware";
 
 export async function POST(request) {
   const res = await request.json();

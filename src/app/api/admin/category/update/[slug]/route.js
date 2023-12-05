@@ -6,17 +6,17 @@ export async function PATCH(request, { params }) {
   const res = await request.json();
   const slug = params.slug;
 
-  const accessToken = request.headers.get("authorization")?.split(" ")[1];
-  if (!accessToken || !verifyJwt(accessToken)) {
-    return NextResponse.json(
-      {
-        message: "Unauthorized",
-      },
-      {
-        status: 401,
-      }
-    );
-  }
+  // const accessToken = request.headers.get("authorization")?.split(" ")[1];
+  // if (!accessToken || !verifyJwt(accessToken)) {
+  //   return NextResponse.json(
+  //     {
+  //       message: "Unauthorized",
+  //     },
+  //     {
+  //       status: 401,
+  //     }
+  //   );
+  // }
 
   const category = await prisma.category.findMany({
     where: {
