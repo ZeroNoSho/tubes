@@ -14,10 +14,11 @@ export async function GET(request) {
   //     }
   //   );
   // }
+
   try {
     const cart = await prisma.cart.findMany({
       include: {
-        productsz: true,
+        product: true,
       },
     });
 
