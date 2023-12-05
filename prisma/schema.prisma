@@ -13,9 +13,16 @@ model user {
   name          String
   password      String
   refresh_token String
-  role          String
   profile       Profile?
-  carts         cart[]
+ 
+}
+
+model admin {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  email         String   @unique
+  name          String
+  password      String
+  refresh_token String
 }
 
 model Profile {
@@ -26,40 +33,54 @@ model Profile {
   kecamatan String
   kodepos   Int
   alamat    String
+  
   userId    String     @unique @db.ObjectId
   user      user       @relation(fields: [userId], references: [id])
+  
+  cart      cart[]
 }
 
 model cart {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  cartid    String    @id @default(auto()) @map("_id") @db.ObjectId
   total     Int
-  users     user      @relation(fields: [userId], references: [id])
-  userId    String    @db.ObjectId
   createAt  DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  //join tabel user dan cart
+  ProfileId      String    @db.ObjectId
+  Profile        Profile   @relation(fields: [ProfileId], references: [id])
   
-  productId String    @unique @db.ObjectId
-  productsz product[]    
+  //join tabel producr dan cart
+  productid   String[]   @db.ObjectId
+  product     product[] @relation(fields: [productid], references: [productid])   
 }
 
 model product{
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  productid     String   @id @default(auto()) @map("_id") @db.ObjectId
   title         String
   harga         Int
   desc          String
   image         String
   createAt      DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  categorys     category @relation(fields: [categoryTitle], references: [title])
-  categoryTitle String  
-  carts cart    @relation(fields: [id], references: [productId])
+
+  // join category dan product
+  categoryid    String[]   @db.ObjectId
+  categorys     category[] @relation(fields: [categoryid], references: [categoryid])
+  
+  //join cart dan product
+  cartid        String[]   @db.ObjectId
+  carts         cart[]    @relation(fields: [cartid], references: [cartid])
 }
 
 model category{
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  title     String   @unique
-  createAt  DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  cproducts product[]
+  categoryid    String   @id @default(auto()) @map("_id") @db.ObjectId
+  categoryTitle String   @unique
+  createAt      DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // join category dan product
+  productid     String[]  @db.ObjectId
+  products      product[] @relation(fields: [productid], references: [productid])
 }
 

@@ -25,3 +25,33 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.blue {
+  background-color: #485fc7;
+}
+.blue2 {
+  background-color: #4c65d2;
+}
+.text_blue {
+  color: #485fc7;
+}
+
+.containers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: inline-block;
+  vertical-align: -moz-middle-with-baseline !important;
+}
