@@ -38,6 +38,6 @@ export async function GET() {
 
     return NextResponse.json({ accessToken }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    return NextResponse.json({ msg: "error" }, { status: 400 });
   }
 }
