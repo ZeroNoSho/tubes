@@ -18,12 +18,8 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: linear-gradient(to top right, #83e939 10%, #95bc0c);
+  /* background-color: linear-gradient(#83e939, #95bc0c); */
 }
 
 .blue {
