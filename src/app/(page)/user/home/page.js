@@ -38,9 +38,12 @@ export default function Homeuser() {
           </div>
 
           <div className="w-full text-center  mt-12">
-            <button className=" p-3 m-auto rounded-full bg-[#F3F25B]">
+            <Link
+              href={"/user/katalog"}
+              className=" p-3 m-auto rounded-full bg-[#F3F25B]"
+            >
               {`Jelajahi Tanaman > `}
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -103,9 +106,12 @@ export default function Homeuser() {
           </div>
         </div>
         <div className="w-full text-center ml-auto mt-12">
-          <button className=" p-3 m-auto rounded-full bg-[#F3F25B]">
+          <Link
+            href={"/user/katalog"}
+            className=" p-3 m-auto rounded-full bg-[#F3F25B]"
+          >
             {`Lihat Semua Tanaman > `}
-          </button>
+          </Link>
         </div>
       </div>
       {/* Cara Merawat Tanaman */}{" "}

@@ -1,6 +1,7 @@
 import { verifyJwt } from "@/app/api/middleware";
 import prisma from "../../../../../../../lib/prisma";
 import { NextResponse } from "next/server";
+import { cloudinary } from "@/app/api/utils";
 
 export async function DELETE(request, { params }) {
   const slug = params.slug;
@@ -42,6 +43,10 @@ export async function DELETE(request, { params }) {
   });
 
   try {
+    cloudinary.uploader
+      .destroy(product[0].public_id)
+      .then((result) => console.log(result));
+
     await prisma.product.delete({
       where: {
         productid: slug,

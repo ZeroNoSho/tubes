@@ -30,7 +30,7 @@ export async function GET(request) {
       }
     );
   } catch (error) {
-    NextResponse.json(
+    return NextResponse.json(
       { msg: "error" },
       {
         headers: {

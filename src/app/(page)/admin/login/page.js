@@ -11,12 +11,12 @@ export default function Login() {
   const auth = async (e) => {
     e.preventDefault();
     axios
-      .post("/api/users/user/login", {
+      .post("/api/admin/user/login", {
         email: name,
         password: password,
       })
       .then((res) => {
-        router.push(`/user/home`);
+        router.push(`/admin/dashboard`);
       })
       .catch((error) => {
         if (error.response) {
@@ -58,7 +58,7 @@ export default function Login() {
         </div>
       </div>
       <div className="w-[50%] h-full text-center p-24 bg-white min-h-screen ">
-        <p className="py-5 font-bold text-5xl">Selamat Datang </p>
+        <p className="py-5 font-bold text-5xl">Selamat Datang Admin</p>
         <form onSubmit={auth}>
           <div className="py-10">
             <input

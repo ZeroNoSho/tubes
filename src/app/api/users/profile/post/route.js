@@ -15,7 +15,7 @@ export async function POST(request) {
   //     }
   //   );
   // }
-  
+
   const profile = await prisma.profile.findMany({
     where: {
       userId: res.userId,
@@ -34,6 +34,7 @@ export async function POST(request) {
       }
     );
   }
+
   try {
     await prisma.profile.create({
       data: {

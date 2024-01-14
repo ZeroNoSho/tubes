@@ -51,12 +51,14 @@ model cart {
   Profile        Profile   @relation(fields: [ProfileId], references: [id])
   
   //join tabel producr dan cart
-  productid   String[]   @db.ObjectId
-  product     product[] @relation(fields: [productid], references: [productid])   
+  productId   String[]  @db.ObjectId
+  product     product[] @relation(fields: [productId], references: [productid])   
 }
 
 model product{
   productid     String   @id @default(auto()) @map("_id") @db.ObjectId
+  public_id     String
+  signature     String
   title         String
   harga         Int
   desc          String

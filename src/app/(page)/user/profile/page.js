@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -69,6 +70,10 @@ export default function Profile() {
           <p className="ml-auto">{`>`}</p>
         </div>
       </div>
+      <input
+        type="file"
+        onChange={(e) => console.log(e.target.files[0])}
+      ></input>
     </main>
   );
 }

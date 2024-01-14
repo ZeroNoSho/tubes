@@ -51,3 +51,10 @@ body {
   display: inline-block;
   vertical-align: -moz-middle-with-baseline !important;
 }
+.cheakboxs[type="checkbox"] {
+  display: none;
+}
+
+.cheakboxs[type="checkbox"]:checked ~ span {
+  background: #354694;
+}
