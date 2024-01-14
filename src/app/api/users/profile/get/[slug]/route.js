@@ -1,8 +1,8 @@
-import prisma from "../../../../../../lib/prisma";
+import prisma from "../../../../../../../lib/prisma";
 import { NextResponse } from "next/server";
 import { verifyJwt } from "@/app/api/middleware";
 
-export async function GET(request) {
+export async function GET(request, { params }) {
   // const accessToken = request.headers.get("authorization")?.split(" ")[1];
   // if (!accessToken || !verifyJwt(accessToken)) {
   //   return NextResponse.json(
@@ -15,7 +15,11 @@ export async function GET(request) {
   //   );
   // }
   try {
+    const slug = params.slug;
     const profile = await prisma.profile.findMany({
+      where: {
+        userId: slug,
+      },
       include: {
         cart: {
           include: {

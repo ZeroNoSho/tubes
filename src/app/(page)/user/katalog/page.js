@@ -49,35 +49,65 @@ export default function Katalog() {
         </div>
       </div>
       <div className="pt-16 grid grid-cols-3 gap-10 w-auto">
-        {datas &&
-          datas?.map((e, i) => (
-            <Link
-              href={`/user/detail/${e.productid}`}
-              key={i}
-              className="relative flex w-[290px] text-center flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md mx-auto my-auto"
-            >
-              <div className="p-6">
-                <h5 className="mb-2 py-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                  {e.title}
-                </h5>
-                <Image
-                  alt="logo"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{
-                    width: "80%",
-                    height: "100%",
-                  }}
-                  className={`mx-auto py-10`}
-                  src={e.image}
-                ></Image>
-                <h5 className="mb-2 py-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                  Rp. {e.harga}
-                </h5>
-              </div>
-            </Link>
-          ))}
+        {datas
+          ? datas &&
+            datas?.map((e, i) => (
+              <Link
+                href={`/user/detail/${e.productid}`}
+                key={i}
+                className="relative flex w-[290px] text-center flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md mx-auto my-auto"
+              >
+                <div className="p-6">
+                  <h5 className="mb-2 py-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                    {e.title}
+                  </h5>
+                  <Image
+                    alt="logo"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{
+                      width: "80%",
+                      height: "100%",
+                    }}
+                    className={`mx-auto py-10`}
+                    src={e.image}
+                  ></Image>
+                  <h5 className="mb-2 py-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                    Rp. {e.harga}
+                  </h5>
+                </div>
+              </Link>
+            ))
+          : data &&
+            data?.map((e, i) => (
+              <Link
+                href={`/user/detail/${e.productid}`}
+                key={i}
+                className="relative flex w-[290px] text-center flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md mx-auto my-auto"
+              >
+                <div className="p-6">
+                  <h5 className="mb-2 py-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                    {e.title}
+                  </h5>
+                  <Image
+                    alt="logo"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{
+                      width: "80%",
+                      height: "100%",
+                    }}
+                    className={`mx-auto py-10`}
+                    src={e.image}
+                  ></Image>
+                  <h5 className="mb-2 py-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                    Rp. {e.harga}
+                  </h5>
+                </div>
+              </Link>
+            ))}
       </div>
     </main>
   );

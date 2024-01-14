@@ -16,7 +16,6 @@ export async function GET(request, { params }) {
   //   );
   // }
   try {
-    console.log(slug);
     const product = await prisma.product.findMany({
       where: {
         productid: slug,

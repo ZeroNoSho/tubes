@@ -3,12 +3,15 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
+import { useState } from "react";
 import { useParams } from "next/navigation";
 export default function Detail() {
   const params = useParams();
-  const fetcher = (url) => axios.get(url).then((res) => res.data.product[0]);
+  const [clik, setclik] = useState(0);
+  const fetcher = (url) => axios.get(url).then((res) => res.data);
+  
   const { data: dataid, error } = useSWR(
-    `http://localhost:3000/api/admin/product/get/${params.slug}`,
+    `/api/admin/product/get/${params.slug}`,
     fetcher
   );
 
@@ -27,7 +30,7 @@ export default function Detail() {
                 height: "50%",
               }}
               className={`mx-auto py-10`}
-              src={dataid && dataid.image}
+              src={dataid && dataid.product[0].image}
             ></Image>
           </div>
           <div className="w-full text-center mt-10">
@@ -36,19 +39,24 @@ export default function Detail() {
               href={"/user/katalog"}
               className="p-3 m-auto rounded-full bg-[#F3F25B] w-32"
             >
-              {dataid && dataid.categorys[0].categoryTitle}
+              {dataid && dataid.product[0].categorys[0].categoryTitle}
             </button>
           </div>
         </div>
         <div className="w-1/2 px-10 text-white">
-          <p className="py-5 font-bold text-5xl ">{dataid && dataid.title}</p>
-          <p className="text-xl">{dataid && dataid.desc}</p>
+          <p className="py-5 font-bold text-5xl ">
+            {dataid && dataid.product[0].title}
+          </p>
+          <p className="text-xl">{dataid && dataid.product[0].desc}</p>
           <p className="py-5 font-bold text-2xl ">
-            Rp {dataid && dataid.harga}
+            Rp {dataid && dataid.product[0].harga}
           </p>
           <div className="flex">
             <div className="flex flex-row border h-10 w-24 rounded-lg relative">
-              <button className="font-semibold border-r bg-white  h-full w-20 flex rounded-l focus:outline-none cursor-pointer">
+              <button
+                className="font-semibold border-r bg-white  h-full w-20 flex rounded-l focus:outline-none cursor-pointer"
+                onClick={() => setclik(clik + 1)}
+              >
                 <span className="m-auto text-black">+</span>
               </button>
               <input
@@ -58,10 +66,13 @@ export default function Detail() {
                 name="custom-input-number"
               />
               <div className="bg-none w-24 text-xs md:text-base flex items-center justify-center cursor-default">
-                <span>2</span>
+                <span>{clik}</span>
               </div>
 
-              <button className="font-semibold border-l  bg-white  h-full w-20 flex rounded-r focus:outline-none cursor-pointer">
+              <button
+                className="font-semibold border-l  bg-white  h-full w-20 flex rounded-r focus:outline-none cursor-pointer"
+                onClick={() => (clik == 0 ? "" : setclik(clik - 1))}
+              >
                 <span className="m-auto text-black">-</span>
               </button>
             </div>
@@ -86,7 +97,7 @@ export default function Detail() {
       </p>
       <div className="pt-16 grid grid-cols-3 gap-10 w-auto">
         {dataid &&
-          dataid.categorys[0].products?.map((e, i) => (
+          dataid.product[0].categorys[0].products?.map((e, i) => (
             <Link
               href={`/user/detail/${e.productid}`}
               key={i}
