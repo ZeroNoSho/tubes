@@ -18,7 +18,7 @@ export async function DELETE(request, { params }) {
 
   const carts = await prisma.cart.findMany({
     where: {
-      id: slug,
+      cartid: slug,
     },
   });
 
@@ -38,7 +38,7 @@ export async function DELETE(request, { params }) {
   try {
     await prisma.cart.delete({
       where: {
-        id: slug,
+        cartid: slug,
       },
     });
     return NextResponse.json(
@@ -52,7 +52,7 @@ export async function DELETE(request, { params }) {
       }
     );
   } catch (error) {
-    NextResponse.json(
+    return NextResponse.json(
       { msg: "error" },
       {
         headers: {

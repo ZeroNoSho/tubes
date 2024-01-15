@@ -28,9 +28,19 @@ export async function GET(request, { params }) {
         },
       },
     });
+    let totalQuantity = 0;
+    let totalPrice = 0;
+    profile[0].cart.forEach((cart) => {
+      totalQuantity += cart.total;
+
+      // Menggunakan perulangan karena setiap objek cart dapat memiliki beberapa produk
+      cart.product.forEach((product) => {
+        totalPrice += product.harga * cart.total;
+      });
+    });
 
     return NextResponse.json(
-      { profile },
+      { profile, totalQuantity, totalPrice },
       {
         headers: {
           status: 200,

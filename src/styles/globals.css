@@ -21,7 +21,10 @@ body {
   background-image: linear-gradient(to top right, #83e939 10%, #95bc0c);
   /* background-color: linear-gradient(#83e939, #95bc0c); */
 }
-
+.scrollable-box {
+  height: 550px; /* Sesuaikan tinggi sesuai kebutuhan */
+  overflow: auto; /* Membuat box menjadi scrollable */
+}
 .blue {
   background-color: #485fc7;
 }

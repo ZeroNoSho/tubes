@@ -56,8 +56,25 @@ const Provider = ({ children }) => {
     fetcher1(url, token)
   );
 
+  const {
+    data: carts,
+    error: errorcarts,
+    mutate: mutatecart,
+  } = useSWR(`/api/users/profile/get/${decode?.UserId}`, fetcher);
+
   return (
-    <Contex.Provider value={{ token, datas, setDatas, kategori, data, decode }}>
+    <Contex.Provider
+      value={{
+        token,
+        datas,
+        setDatas,
+        kategori,
+        data,
+        decode,
+        carts,
+        mutatecart,
+      }}
+    >
       {children}
     </Contex.Provider>
   );

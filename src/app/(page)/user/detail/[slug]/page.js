@@ -3,18 +3,39 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
-import { useState } from "react";
+import { Contex } from "@/context/user/store";
+import { useState, useContext } from "react";
 import { useParams } from "next/navigation";
 export default function Detail() {
   const params = useParams();
+  const { decode, token, carts, mutatecart } = useContext(Contex);
   const [clik, setclik] = useState(0);
   const fetcher = (url) => axios.get(url).then((res) => res.data);
-  
-  const { data: dataid, error } = useSWR(
-    `/api/admin/product/get/${params.slug}`,
-    fetcher
-  );
 
+  const {
+    data: dataid,
+    error,
+    mutate: mutatedatas,
+  } = useSWR(`/api/admin/product/get/${params.slug}`, fetcher);
+
+  const postData = async () => {
+    const res = await axios.post(
+      `/api/users/cart/post`,
+      {
+        total: clik,
+        ProfileId: carts?.profile?.[0]?.id,
+        productId: params.slug,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+          "Cache-Control": "no-cache",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    mutatecart(`/api/users/profile/get/${decode && decode.UserId}`);
+  };
   return (
     <main className="items-center min-h-screen px-24 py-24">
       <div className="flex m-auto">
@@ -30,7 +51,7 @@ export default function Detail() {
                 height: "50%",
               }}
               className={`mx-auto py-10`}
-              src={dataid && dataid.product[0].image}
+              src={dataid?.product?.[0]?.image}
             ></Image>
           </div>
           <div className="w-full text-center mt-10">
@@ -78,6 +99,7 @@ export default function Detail() {
             </div>
             <div className="w-full text-center">
               <button
+                onClick={() => postData()}
                 href={"/user/katalog"}
                 className="p-3 m-auto rounded-full bg-[#F3F25B] text-black"
               >
