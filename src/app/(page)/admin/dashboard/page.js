@@ -116,7 +116,7 @@ export default function Home() {
                         <td className={`border border-gray-500 p-4  `}>
                           <div className="flex">
                             <Link
-                              href={`/bahan/add/${item.productid}`}
+                              href={`/admin/dashboard/add/${item.productid}`}
                               className="basis-1/2 cursor-pointer"
                             >
                               <FontAwesomeIcon icon={faPencil} />

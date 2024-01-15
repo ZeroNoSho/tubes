@@ -1,9 +1,9 @@
 import { verifyJwt } from "@/app/api/middleware";
 import prisma from "../../../../../../../lib/prisma";
 import { NextResponse } from "next/server";
+import { cloudinary } from "@/app/api/utils";
 
 export async function PATCH(request, { params }) {
-  const res = await request.json();
   const slug = params.slug;
   // const accessToken = request.headers.get("authorization")?.split(" ")[1];
   // if (!accessToken || !verifyJwt(accessToken)) {
@@ -22,6 +22,7 @@ export async function PATCH(request, { params }) {
       productid: slug,
     },
   });
+
   const category = await prisma.category.findMany({
     where: {
       productid: { hasEvery: [slug] },
@@ -42,18 +43,48 @@ export async function PATCH(request, { params }) {
   }
 
   try {
+    const formData = await request.formData();
+    const title = formData.get("title");
+    const harga = formData.get("harga");
+    const desc = formData.get("desc");
+    const categoryidex = formData.get("categoryid");
+    const categoryid = JSON.parse(categoryidex);
+    formData.append("upload_preset", "llhlfihh");
+
+    const uploadResponse = await fetch(
+      "https://api.cloudinary.com/v1_1/davjj74mu/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const uploadedImageData = await uploadResponse.json();
+    const imageUrl = uploadedImageData.secure_url;
+    const public_id = uploadedImageData.public_id;
+    const signature = uploadedImageData.signature;
+
+    console.log(formData);
+
+    cloudinary.uploader
+      .destroy(product[0].public_id)
+      .then((result) => console.log(result));
+
     await prisma.product.update({
       where: {
         productid: slug,
       },
       data: {
-        title: res.title,
-        harga: res.harga,
-        image: res.image,
-        desc: res.desc,
-        categoryid: res.categoryid,
+        title: title,
+        harga: parseInt(harga),
+        image: imageUrl,
+        public_id: public_id,
+        signature: signature,
+        desc: desc,
+        categoryid: categoryid,
       },
     });
+
     await Promise.all(
       category.map(async (e) => {
         await prisma.category.update({
@@ -68,9 +99,8 @@ export async function PATCH(request, { params }) {
         });
       })
     );
-
     await Promise.all(
-      res.categoryid.map(async (e) => {
+      categoryid.map(async (e) => {
         await prisma.category.update({
           where: {
             categoryid: e,
@@ -94,7 +124,7 @@ export async function PATCH(request, { params }) {
       }
     );
   } catch (error) {
-    NextResponse.json(
+    return NextResponse.json(
       { msg: "error" },
       {
         headers: {

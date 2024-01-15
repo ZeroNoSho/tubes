@@ -25,6 +25,7 @@ export async function POST(request) {
     const desc = formData.get("desc");
     const categoryidex = formData.get("categoryid");
     const categoryid = JSON.parse(categoryidex);
+    formData.append("upload_preset", "llhlfihh");
 
     const uploadResponse = await fetch(
       "https://api.cloudinary.com/v1_1/davjj74mu/image/upload",
@@ -38,7 +39,7 @@ export async function POST(request) {
     const imageUrl = uploadedImageData.secure_url;
     const public_id = uploadedImageData.public_id;
     const signature = uploadedImageData.signature;
-
+   
     await prisma.product.create({
       data: {
         title: title,
@@ -77,7 +78,7 @@ export async function POST(request) {
       }
     );
   } catch (error) {
-    NextResponse.json(
+    return NextResponse.json(
       { msg: "error" },
       {
         headers: {
