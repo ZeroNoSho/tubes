@@ -17,6 +17,18 @@ export default function Cart() {
     `/api/users/profile/get/${decode && decode.UserId}`,
     fetcher
   );
+  let totalQuantity = 0;
+  let totalPrice = 0;
+  
+  // dataid &&
+  //   dataid.forEach((cart) => {
+  //     totalQuantity += cart.total;
+
+  //     // Menggunakan perulangan karena setiap objek cart dapat memiliki beberapa produk
+  //     cart.product.forEach((product) => {
+  //       totalPrice += product.harga;
+  //     });
+  //   });
   console.log(dataid);
   return (
     <main className="items-center min-h-screen px-24 py-24">

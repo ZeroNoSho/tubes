@@ -17,7 +17,7 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: black;
   background-image: linear-gradient(to top right, #83e939 10%, #95bc0c);
   /* background-color: linear-gradient(#83e939, #95bc0c); */
 }

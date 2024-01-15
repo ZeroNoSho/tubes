@@ -26,7 +26,7 @@ export default function Home() {
     formData.append("desc", des);
     formData.append("categoryid", JSON.stringify(cheakbox));
     formData.append("file", file);
-
+  
     const res = await axios.patch(
       `/api/admin/product/update/${params.slug}`,
       formData,
