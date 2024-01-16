@@ -16,7 +16,9 @@ export default function Login() {
         password: password,
       })
       .then((res) => {
-        router.push(`/user/home`);
+        if (res.data.accessToken) {
+          router.push(`/user/home`);
+        }
       })
       .catch((error) => {
         if (error.response) {
