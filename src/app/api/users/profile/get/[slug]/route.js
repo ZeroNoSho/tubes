@@ -28,19 +28,21 @@ export async function GET(request, { params }) {
         },
       },
     });
-    let totalQuantity = 0;
-    let totalPrice = 0;
-    profile[0].cart.forEach((cart) => {
-      totalQuantity += cart.total;
-
-      // Menggunakan perulangan karena setiap objek cart dapat memiliki beberapa produk
-      cart.product.forEach((product) => {
-        totalPrice += product.harga * cart.total;
-      });
-    });
+    if (profile.length === 0) {
+      return NextResponse.json(
+        { msg: "notfound" },
+        {
+          headers: {
+            status: 400,
+            "Content-Security-Policy-Report-Only":
+              "default-src 'none'; img-src 'self'",
+          },
+        }
+      );
+    }
 
     return NextResponse.json(
-      { profile, totalQuantity, totalPrice },
+      { profile },
       {
         headers: {
           status: 200,

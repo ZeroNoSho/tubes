@@ -19,9 +19,10 @@ export async function PATCH(request, { params }) {
 
   const product = await prisma.profile.findMany({
     where: {
-      id: slug,
+      userId: slug,
     },
   });
+  console.log(product);
 
   if (product.length === 0) {
     return NextResponse.json(
@@ -39,14 +40,14 @@ export async function PATCH(request, { params }) {
   try {
     await prisma.profile.update({
       where: {
-        id: slug,
+        userId: slug,
       },
       data: {
         nomor: res.nomor,
         provinsi: res.provinsi,
         kota: res.kota,
         kecamatan: res.kecamatan,
-        kodepos: res.kodepos,
+        kodepos: parseInt(res.kodepos),
         alamat: res.alamat,
       },
     });
@@ -61,7 +62,7 @@ export async function PATCH(request, { params }) {
       }
     );
   } catch (error) {
-    NextResponse.json(
+    return NextResponse.json(
       { msg: "error" },
       {
         headers: {

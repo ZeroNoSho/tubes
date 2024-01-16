@@ -72,7 +72,7 @@ export default function Profile() {
             </h5>
           </div>
         </div>
-        <div className="relative flex w-[200px]  text-center flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md mx-auto my-auto">
+        <Link href={"/user/seting"} className="relative flex w-[200px]  text-center flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md mx-auto my-auto">
           <div className="p-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +90,7 @@ export default function Profile() {
               Settings
             </h5>
           </div>
-        </div>
+        </Link>
       </div>
       <div className="text-white">
         <div className="py-5 flex border-b-2 border-grey-500">

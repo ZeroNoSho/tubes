@@ -16,33 +16,20 @@ export async function POST(request) {
   //   );
   // }
 
-  const profile = await prisma.profile.findMany({
-    where: {
-      userId: res.userId,
-    },
-  });
-
-  if (profile.length !== 0) {
-    return NextResponse.json(
-      { msg: "sudah ada" },
-      {
-        headers: {
-          status: 400,
-          "Content-Security-Policy-Report-Only":
-            "default-src 'none'; img-src 'self'",
-        },
-      }
-    );
-  }
-
   try {
+    const prof = await prisma.profile.findMany({
+      where: {
+        userId: res.userId,
+      },
+    });
+
     await prisma.profile.create({
       data: {
         nomor: res.nomor,
         provinsi: res.provinsi,
         kota: res.kota,
         kecamatan: res.kecamatan,
-        kodepos: res.kodepos,
+        kodepos: parseInt(res.kodepos),
         alamat: res.alamat,
         userId: res.userId,
       },
@@ -59,8 +46,8 @@ export async function POST(request) {
       }
     );
   } catch (error) {
-    NextResponse.json(
-      { msg: "error" },
+    return NextResponse.json(
+      { msg: error },
       {
         headers: {
           status: 400,

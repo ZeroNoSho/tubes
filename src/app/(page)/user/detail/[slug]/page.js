@@ -4,13 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
 import { Contex } from "@/context/user/store";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useParams } from "next/navigation";
 export default function Detail() {
   const params = useParams();
-  const { decode, token, carts, mutatecart } = useContext(Contex);
+  const { decode, token, carts, mutatecart, router } = useContext(Contex);
   const [clik, setclik] = useState(0);
   const fetcher = (url) => axios.get(url).then((res) => res.data);
+
+  useEffect(() => {
+    if (carts?.msg === "notfound") {
+      router.push("/user/seting");
+    }
+  }, [carts]);
 
   const {
     data: dataid,

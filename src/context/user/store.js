@@ -8,8 +8,10 @@ axios.defaults.withCredentials = true;
 const Contex = createContext(null);
 
 const Provider = ({ children }) => {
+  const router = useRouter();
   const [decode, setDecode] = useState();
   const [datas, setDatas] = useState();
+
   useEffect(() => {
     axios.get("/api/users/refreshToken").then((res) => {
       const prof = jwtDecode(res.data.accessToken);
@@ -17,7 +19,6 @@ const Provider = ({ children }) => {
     });
   }, []);
 
-  const router = useRouter();
   const fetcher = (url) => axios.get(url).then((res) => res.data);
   const { data: token, error } = useSWR("/api/users/refreshToken", fetcher);
 
@@ -49,14 +50,6 @@ const Provider = ({ children }) => {
   );
 
   const {
-    data: ctr,
-    error: errorctr,
-    mutate: mutatectr,
-  } = useSWR([`/api/admin/category/get`, token], ([url, token]) =>
-    fetcher1(url, token)
-  );
-
-  const {
     data: carts,
     error: errorcarts,
     mutate: mutatecart,
@@ -73,6 +66,7 @@ const Provider = ({ children }) => {
         decode,
         carts,
         mutatecart,
+        router,
       }}
     >
       {children}

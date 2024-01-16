@@ -55,6 +55,17 @@ export default function Cart() {
     });
     mutatecart(`/api/users/profile/get/${decode && decode.UserId}`);
   };
+  let totalQuantity = 0;
+  let totalPrice = 0;
+  carts?.profile?.[0]?.cart.forEach((cart) => {
+    totalQuantity += cart.total;
+
+    // Menggunakan perulangan karena setiap objek cart dapat memiliki beberapa produk
+    cart.product.forEach((product) => {
+      totalPrice += product.harga * cart.total;
+    });
+  });
+
   return (
     <main className="items-center min-h-screen px-24 py-24">
       <div className="flex">
@@ -130,9 +141,9 @@ export default function Cart() {
               </div>
               <div className="ml-auto">
                 <p className="font-bold text-2xl"> </p>
-                <p className="text-lg my-10">{carts?.totalQuantity}</p>
+                <p className="text-lg my-10">{totalQuantity}</p>
                 <p className="text-lg my-10">0%</p>
-                <p className="text-lg mt-44">Rp {carts?.totalPrice}</p>
+                <p className="text-lg mt-44">Rp {totalPrice}</p>
               </div>
             </div>
             <div className="w-full text-center mt-10">
