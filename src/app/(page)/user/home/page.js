@@ -2,7 +2,32 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Homeuser() {
-  const arry = [1, 2, 3, 4, 5, 6];
+  const arry = [
+    {
+      title: "Siap Kirim ke Seluruh Indonesia",
+      des: "Siap mengirim tanaman ke seluruh indonesia,bahkan sampai daerah pelosok.",
+    },
+    {
+      title: "Tersedia Beragam Jenis Tanaman",
+      des: "Pilihan pohon yang kami miliki sangat banyak, tersedia di tempat kami dan bersama mitra kami. Kami menyediakan ratusan jenis pohon, termasuk yang terkecil dan yang terbesar.",
+    },
+    {
+      title: "Kualitas Tinggi",
+      des: "Kami hanya menyediakan produk-produk berkualitas tinggi yang telah melalui proses seleksi ketat untuk menjamin kepuasan pelanggan.",
+    },
+    {
+      title: "Harga lebih bersahabat.",
+      des: "Kami menawarkan harga terjangkau tanpa mengurangi kualitas, karena tanaman hias kami ditanam langsung oleh petani kami sendiri.",
+    },
+    {
+      title: "Pengiriman yang Cepat",
+      des: "Pengiriman kami dilakukan sesuai alamat yang Anda tentukan, dan kami konsisten dalam memenuhi waktu pengiriman yang telah disepakati.",
+    },
+    {
+      title: "Varietas Tanaman",
+      des: "Kami menawarkan berbagai jenis tanaman, mulai dari hiasan hingga tanaman produktif, memungkinkan Anda menemukan apa yang sesuai dengan kebutuhan Anda.",
+    },
+  ];
   return (
     <main className="items-center min-h-screen justify-between p-24">
       {/* screen awal */}
@@ -56,19 +81,17 @@ export default function Homeuser() {
           Berikut alasan mengapa anda harus membeli produk kami.
         </p>
         <div className="flex justify-center flex-wrap mx-auto gap-10 w-auto">
-          {arry.map((e) => (
+          {arry.map((e, i) => (
             <div
-              key={e}
+              key={i}
               className=" relative flex w-96 h-52 text-center flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
             >
               <div className="p-6">
                 <h5 className="mb-2 py-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                  UI/UX Review Check
+                  {e.title}
                 </h5>
                 <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
-                  The place is close to Barceloneta Beach and bus stop just 2
-                  min by walk and near to where you can enjoy the main night
-                  life in Barcelona.
+                  {e.des}
                 </p>
               </div>
             </div>
