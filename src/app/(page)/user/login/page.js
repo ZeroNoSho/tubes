@@ -16,7 +16,7 @@ export default function Login() {
         password: password,
       })
       .then((res) => {
-        if (res.data.accessToken) {
+        if ("accessToken" in res.data) {
           router.push(`/user/home`);
         }
       })
