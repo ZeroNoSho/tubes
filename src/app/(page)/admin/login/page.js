@@ -16,7 +16,9 @@ export default function Login() {
         password: password,
       })
       .then((res) => {
-        router.push(`/admin/dashboard`);
+        if (res.data.accessToken) {
+          router.push(`/admin/dashboard`);
+        }
       })
       .catch((error) => {
         if (error.response) {
